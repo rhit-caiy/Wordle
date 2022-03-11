@@ -25,7 +25,7 @@ def total(a):
     for i in range(len(a)):
         total+=a[i]*i
     return total
-maxtry=5#allowed guesses, increase to 6 for most other first guesses
+maxtry=6#allowed guesses, variance from 5 to 7
 #input: step and guess and possible answers in number, compare and get best result under recursion
 def guess(guessword,possiblewords,step):
     sortedwords=[[] for i in range(243)]
@@ -84,7 +84,7 @@ def guess(guessword,possiblewords,step):
             bestsubstepnum=[1000]*(maxtry+1)
             for j in group:#add weight to possible words
                 entropy[j]+=1/l
-            trynum=8#increase it for other first guess, try 8 words with highest entropy
+            trynum=8#change it for other first guess, try 8 words with highest entropy
             if step>2:
                 trynum=1#reduce calculation
             for j in range(trynum):
@@ -104,12 +104,12 @@ def guess(guessword,possiblewords,step):
     wordpath=[i for i in wordpath if i!='']
     return [stepnum,wordpath]
 firstguessindex=words.index('salet')#set first guess
-r=guess(firstguessindex,[i for i in range(num)],1)#input first guess, all 2315 possible words, step 1. best 111 seconds
+r=guess(firstguessindex,[i for i in range(num)],1)#input first guess, all 2315 possible words, step 1. best 110 seconds
 stepnum=r[0]
 wordpath=r[1]#tree structure for all possible words
-total=total(stepnum)
-average=total/num
-print(total,stepnum,average)#7920 [0, 0, 80, 1239, 937, 59] 3.4211663066954645
+totalstep=total(stepnum)
+average=totalstep/num
+print(totalstep,stepnum,average)#7920 [0, 0, 80, 1239, 937, 59] 3.4211663066954645
 #recursively decode the result tree and output as a 2D array
 def findallwords(result):
     firstword=result[0]
